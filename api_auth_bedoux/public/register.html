@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Test API Register</title>
+    </head>
+    <body>
+        <h2>Inscription API</h2>
+
+        <form id="registerForm">
+            <input type="text" name="Name" placeholder="Nom" /><br />
+            <input type="email" name="Email" placeholder="Email" /><br />
+            <input
+                type="password"
+                name="Password"
+                placeholder="Mot de passe"
+            /><br />
+            <input
+                type="text"
+                name="LieuNaissance"
+                placeholder="Lieu de naissance"
+            /><br />
+            <input
+                type="date"
+                name="DateNaissance"
+                placeholder="Date de naissance"
+            /><br />
+            <input
+                type="text"
+                name="Nom_Emploi"
+                placeholder="Nom emploi"
+            /><br />
+            <input
+                type="text"
+                name="Secteurs_Activite"
+                placeholder="Secteur d'activité"
+            /><br />
+            <input
+                type="text"
+                name="Type_Contrat"
+                placeholder="Type de contrat"
+            /><br />
+            <input
+                type="text"
+                name="Duree_Contrat"
+                placeholder="Durée du contrat"
+            /><br />
+            <button type="submit">S'inscrire</button>
+        </form>
+
+        <href></href>
+
+        <pre id="result"></pre>
+
+        <script>
+            document
+                .getElementById("registerForm")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const data = {
+                        Name: this.Name.value,
+                        Email: this.Email.value,
+                        Password: this.Password.value,
+                        LieuNaissance: this.LieuNaissance.value,
+                        DateNaissance: this.DateNaissance.value,
+                        Nom_Emploi: this.Nom_Emploi.value,
+                        Secteurs_Activite: this.Secteurs_Activite.value,
+                        Type_Contrat: this.Type_Contrat.value,
+                        Duree_Contrat: this.Duree_Contrat.value,
+                    };
+
+                    fetch("http://localhost:8000/api/register", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                        },
+                        body: JSON.stringify(data),
+                    })
+                        .then((response) => response.json())
+                        .then((json) => {
+                            document.getElementById("result").textContent =
+                                JSON.stringify(json, null, 4);
+                        })
+                        .catch((error) => {
+                            document.getElementById("result").textContent =
+                                "Erreur : " + error;
+                        });
+                });
+        </script>
+    </body>
+</html>
